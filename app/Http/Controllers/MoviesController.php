@@ -38,6 +38,19 @@ class MoviesController extends Controller {
         return $genre->getName();
     }
     
+    private function getGenresTMDB($id) {
+        $genres_ = array();
+        $movie = $this->movie->load($id);
+        $genres = $movie->getGenres();
+        
+            foreach($genres as $genreId){
+                $genre = $this->getGenreNameTMDB($genreId->getId());
+                $genres_[] = $genre;
+            }
+//            dd(implode(",", $genres_));
+            return implode(",", $genres_);
+    }
+    
     private function getMoviesTMDB($pages) {
         
         $movies = array();
@@ -75,7 +88,6 @@ class MoviesController extends Controller {
             $movie->releaseData = $releaseData;
             $movie->movieID = $movieId;
             
-            // get and set genre into array
             $genres = $_movie->getGenres();
             foreach($genres as $genreId){
                 $genre = $this->getGenreNameTMDB($genreId->getId());
@@ -129,6 +141,7 @@ class MoviesController extends Controller {
         $details['status']          = $movie->getStatus();
         $details['poster']          = $this->helper->getHtml($image, 'w154', 260, 420);
         $details['language']        = $movie->getOriginalLanguage();
+        $details['genres']          = $this->getGenresTMDB($movie->getId());
                         
         return json_encode($details);
     }
@@ -138,7 +151,7 @@ class MoviesController extends Controller {
         // get movies from tmdb api and insert into db
         $this->manageMoviesTMDB();
         // get movies from db for view
-        $movies = Movie::orderBy("releaseData", "asc")->paginate(20); 
+        $movies = Movie::where("releaseData", '>=', $this->currentTime)->orderBy("releaseData", "asc")->paginate(20); 
         return view('home', compact('movies'));
     }
 

@@ -11,14 +11,15 @@
                     <h4 class="modal-title" id="memberModalLabel">Movie Details</h4>
                 </div>
                 <div class="dash" style="padding: 20px">
-                    <span>Title: </span><span id="title"></span><br><br>
-                    <span>Language: </span><span id="language"></span><br><br>
-                    <span>Overview: </span><span id="overview"></span><br><br>
-                    <span>Popularity: </span><span id="popularity"></span><br><br>
-                    <span>Poster:</span><br><span id="poster"></span><br><br>
-                    <span>Status: </span><span id="status"></span><br><br>
-                    <span>Vote Average: </span><span id="vote-average"></span><br><br>
+                    <span>Title: </span><span id="title"></span><br>
+                    <span>Language: </span><span id="language"></span><br>
+                    <span>Overview: </span><span id="overview"></span><br>
+                    <span>Popularity: </span><span id="popularity"></span><br>
+                    <span>Poster:</span><br><span id="poster"></span><br>
+                    <span>Status: </span><span id="status"></span><br>
+                    <span>Vote Average: </span><span id="vote-average"></span><br>
                     <span>Vote Count: </span><span id="vote-count"></span><br>
+                    <span>Genres: </span><span id="genres"></span><br>
                 </div>
             </div>
         </div>

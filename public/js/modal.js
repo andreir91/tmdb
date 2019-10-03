@@ -26,6 +26,7 @@ $('#detailsModal').on('show.bs.modal', function (event) {
               $("#detailsModal #status").html(details.status);
               $("#detailsModal #vote-average").html(details.voteAverage);
               $("#detailsModal #vote-count").html(details.voteCount);
+              $("#detailsModal #genres").html(details.genres);
           },
           error: function(err) {
               console.log(err);
