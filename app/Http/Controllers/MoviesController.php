@@ -105,8 +105,7 @@ class MoviesController extends Controller {
         return true;
     }
     
-    private function manageMoviesTMDB() {
-        $response = true;
+    public function fetchMoviesTMDB() {
         //get no of pages from results
         $movies = $this->discover->discoverMovies($this->query);
         $resultPages = $movies->getTotalPages();
@@ -119,10 +118,16 @@ class MoviesController extends Controller {
                 return false;
             }
         }
+        
         if (!$response) {
             dd("Something went wrong!");
         }
-    }	
+        
+        $movies = Movie::where("releaseData", '>=', $this->currentTime)->orderBy("releaseData", "asc")->paginate(20); 
+        $returnHTML = view('mresult', ['movies'=>$movies])->render();
+        
+        return json_encode($returnHTML);
+    }
     
     public function getMovieDetailsTMDB(Request $request) {
         $requestData = $request->all();
@@ -142,17 +147,18 @@ class MoviesController extends Controller {
         $details['poster']          = $this->helper->getHtml($image, 'w154', 260, 420);
         $details['language']        = $movie->getOriginalLanguage();
         $details['genres']          = $this->getGenresTMDB($movie->getId());
-                        
-        return json_encode($details);
-    }
-    
-    public function index()
-    {
-        // get movies from tmdb api and insert into db
-        $this->manageMoviesTMDB();
-        // get movies from db for view
+        
         $movies = Movie::where("releaseData", '>=', $this->currentTime)->orderBy("releaseData", "asc")->paginate(20); 
-        return view('home', compact('movies'));
+        return json_encode($details);
+    } 
+    
+    public function index(Request $request)
+    {
+        $movies = Movie::where("releaseData", '>=', $this->currentTime)->orderBy("releaseData", "asc")->paginate(20); 
+        if ($request->ajax()) {
+            return view('mresult', compact('movies'));
+        }       
+        return view('home',compact('movies'));
     }
 
 }

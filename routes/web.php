@@ -14,9 +14,11 @@
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
-        Route::get('/', 'MoviesController@index')->name('home');
         Route::get('ajaxRequest', 'MoviesController@getMovieDetailsTMDB');
         Route::post('ajaxRequest', 'MoviesController@getMovieDetailsTMDB');
+        Route::get('fetchMoviesTMDB', 'MoviesController@fetchMoviesTMDB')->name('home');
+        Route::post('fetchMoviesTMDB', 'MoviesController@fetchMoviesTMDB')->name('home');
+        Route::get('/',array('as'=>'/','uses'=>'MoviesController@index'));
 });
 
 

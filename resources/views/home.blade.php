@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<div id="loader"></div>
 <div class="container">
     <!-- Modal -->
     <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
@@ -29,7 +30,6 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">TMDB Movies List</div>
-
                 <div class="panel-body">
                     @if (session('status'))
                         <div class="alert alert-success">
@@ -38,41 +38,12 @@
                     @endif
                 </div>
 				
-                    <div class="panel-body">				
-                            <table class="table">
-                                    <thead>
-                                      <tr>
-                                            <th>Id</th>
-                                            <th>Title</th>
-                                            <th>Genre(s)</th>
-                                            <th>Release Data</th>
-                                            <th>Details</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                        @php $i=1;  @endphp
-                                        @foreach ($movies as $movie)
-                                        <tr>
-                                            <td>{{ $i }}</td>
-                                            <td>{{ $movie->originalTitle }}</td>
-                                            <td>{{ $movie->genres }}</td>
-                                            <td>{{ date('d-m-Y', strtotime($movie->releaseData)) }}</td>
-                                            <td><a class="btn btn-small btn-primary"
-                                                    data-toggle="modal"
-                                                    data-target="#detailsModal"
-                                                    id="getUser"
-                                                    data-movieId="{{$movie->movieID}}">Details</a>
-                                            </td>
-                                        </tr>
-                                        @php $i++;  @endphp
-                                        @endforeach
-
-                                    </tbody>
-                            </table>
-                            {{ $movies->links() }}
-                    </div>
+                <div id="movies_container">
+                    @include('mresult')
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 @endsection
