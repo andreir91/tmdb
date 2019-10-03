@@ -78,19 +78,19 @@ $(document).ready(function() {
 });
 
 function getData(page){
-        $.ajax({
-            url: '?page=' + page,
-            type: "get",
-            datatype: "html"
-        })
-        .done(function(data)
-        {
+    $.ajax({
+        url: '?page=' + page,
+        type: "get",
+        datatype: "html"
+    })
+    .done(function(data)
+    {
 //            console.log(data);
-            $("#movies_container").empty().html(data);
-            location.hash = page;
-        })
-        .fail(function(jqXHR, ajaxOptions, thrownError)
-        {
-              alert('No response from server');
-        });
+        $("#movies_container").empty().html(data);
+        location.hash = page;
+    })
+    .fail(function(jqXHR, ajaxOptions, thrownError)
+    {
+          alert('No response from server');
+    });
 }

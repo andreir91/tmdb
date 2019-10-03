@@ -10,7 +10,6 @@
               </tr>
             </thead>
             <tbody id="tag-container">
-                @php $i=1;  @endphp
                 @foreach ($movies as $movie)
                 <tr>
                     <td>{{ $movie->id }}</td>
@@ -24,7 +23,6 @@
                             data-movieId="{{$movie->movieID}}">Details</a>
                     </td>
                 </tr>
-                @php $i++;  @endphp
                 @endforeach
             </tbody>
     </table>
